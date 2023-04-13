@@ -8,9 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 
 
@@ -47,6 +44,7 @@ public class Association {
     @Column(name="created")
     @CreationTimestamp
     private LocalDateTime created;
+    
     //endregion
 
     //region Constructors
@@ -58,7 +56,7 @@ public class Association {
                        @JsonProperty(value = "password", required = true) String password) {
         this.name = name;
         this.businessmail = mail;
-        this.password = hasPassword(password);
+        this.password = password;
     }
     //endregion
 
@@ -103,20 +101,5 @@ public class Association {
     public void setPassword(String password) {
         this.password = password;
     }
-    //endregion
-
-    //region Methods
-
-    private String hasPassword(String password) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-            return new String(hash);
-        } catch (NoSuchAlgorithmException e) {
-            //TODO: create a more useful exception
-            throw new RuntimeException(e);
-        }
-    }
-
     //endregion
 }
