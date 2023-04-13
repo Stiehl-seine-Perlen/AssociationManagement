@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 
 
 @Entity
-public class AssociationEntry {
+public class Association {
 
     //region Fields
     @Id
@@ -43,28 +43,35 @@ public class AssociationEntry {
     @Column(name="password")
     private String password;
 
-    @JsonProperty("when")
-    @Column(name="created_on")
+    @JsonProperty("created")
+    @Column(name="created")
     @CreationTimestamp
-    private LocalDateTime when;
+    private LocalDateTime created;
     //endregion
 
     //region Constructors
-    protected AssociationEntry() {}
+    protected Association() {}
 
     @JsonCreator
-    public AssociationEntry(@JsonProperty(value = "name", required = true) String name,
-                            @JsonProperty(value = "when", required = true) LocalDateTime when,
-                            @JsonProperty(value = "businessmail", required = true) String mail,
-                            @JsonProperty(value = "password", required = true) String password) {
+    public Association(@JsonProperty(value = "name", required = true) String name,
+                       @JsonProperty(value = "businessmail", required = true) String mail,
+                       @JsonProperty(value = "password", required = true) String password) {
         this.name = name;
-        this.when = when;
         this.businessmail = mail;
         this.password = hasPassword(password);
     }
     //endregion
 
     //region Getters and Setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -73,12 +80,12 @@ public class AssociationEntry {
         this.name = name;
     }
 
-    public LocalDateTime getWhen() {
-        return when;
+    public LocalDateTime getCreated() {
+        return created;
     }
 
-    public void setWhen(LocalDateTime when) {
-        this.when = when;
+    public void setWhen(LocalDateTime created) {
+        this.created = created;
     }
 
     public String getBusinessmail() {
