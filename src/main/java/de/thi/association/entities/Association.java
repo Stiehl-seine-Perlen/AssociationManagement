@@ -44,7 +44,7 @@ public class Association {
     @Column(name="created")
     @CreationTimestamp
     private LocalDateTime created;
-    
+
     //endregion
 
     //region Constructors
