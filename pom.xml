@@ -112,6 +112,11 @@
             <artifactId>quarkus-hibernate-orm-panache</artifactId>
             <version>2.16.5.Final</version>
         </dependency>
+        <dependency>
+            <groupId>de.benevolo</groupId>
+            <artifactId>entities-repo</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
