@@ -10,26 +10,24 @@ import de.thi.association.services.AssociationService;
 
 import java.util.List;
 
-@Path("/association/")
+@Path("/association")
 public class AssociationResource {
     // Schnittstelle
 
     @Inject
     AssociationService associationService;
 
-
     @POST
-    @Path("add")
+    @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Transactional
-    public void addAssociation(de.benevolo.entities.association.Association association) {
-        // has password, because we like data security
-        System.out.println(association);
+    @Produces(MediaType.APPLICATION_JSON)
+    public void addAssociation(Association association) {
+        System.out.println("name: " + association.getAssociationName());
         associationService.persistAssociation(association);
     }
 
     @GET
-    @Path("all")
+    @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Association> getAllEntries() {
         return associationService.getAllAssociations();
