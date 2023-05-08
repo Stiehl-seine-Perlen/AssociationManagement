@@ -21,9 +21,8 @@ public class AssociationResource {
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public void addAssociation(Association association) {
-        System.out.println("name: " + association.getAssociationName());
-        associationService.persistAssociation(association);
+    public Association addAssociation(Association association) {
+        return associationService.persistAssociation(association);
     }
 
     @GET
