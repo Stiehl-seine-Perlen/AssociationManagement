@@ -35,7 +35,7 @@ jobs:
               docker build -f src/main/docker/Dockerfile.jvm \
               --tag docker.benevolo.de/stiehl-seine-perlen/society-sorcerer:dev .
 
-          - name: 'Push frontend image to self hosted docker image registry'
+          - name: 'Push image to self hosted docker image registry'
             run: |
               docker push docker.benevolo.de/stiehl-seine-perlen/society-sorcerer:dev
               
