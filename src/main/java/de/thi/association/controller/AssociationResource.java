@@ -30,4 +30,12 @@ public class AssociationResource {
     public List<Association> getAllEntries() {
         return associationService.getAllAssociations();
     }
+
+    @GET
+    @Path("{associationId}/membercount")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Long getMemberCount(@PathParam("associationId") Long associationid){
+        return  associationService.getMemberCount(associationid);
+    }
 }
