@@ -36,8 +36,4 @@ public class AssociationService {
     public Association createAssociation(Association association) {
         return this.persistAssociation(association);
     }
-
-    public Long getMemberCount(Long associationId){
-        return associationRepository.getMemberCountOfAssociation(associationId);
-    }
 }
