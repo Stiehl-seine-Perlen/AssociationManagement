@@ -9,7 +9,7 @@ import de.thi.association.services.AssociationService;
 
 import java.util.List;
 
-@Path("/association")
+@Path("/association/")
 public class AssociationResource {
     // Schnittstelle
 
@@ -17,7 +17,7 @@ public class AssociationResource {
     AssociationService associationService;
 
     @POST
-    @Path("/add")
+    @Path("add/")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Association addAssociation(Association association) {
@@ -25,9 +25,16 @@ public class AssociationResource {
     }
 
     @GET
-    @Path("/all")
+    @Path("all/")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Association> getAllEntries() {
         return associationService.getAllAssociations();
+    }
+
+    @GET
+    @Path("{id}/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Association getAssociation(@PathParam("id") Long id){
+        return associationService.getAssociationById(id);
     }
 }
