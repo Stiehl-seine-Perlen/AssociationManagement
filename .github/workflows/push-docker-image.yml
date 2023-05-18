@@ -42,4 +42,4 @@ jobs:
 
       - name: "Deploy new image"
         run: |
-          curl -X POST https://portainer.benevolo.de/api/webhooks/97a51b36-7e97-41ec-bdf7-fdf00c3631d9
+          curl -X POST https://portainer.benevolo.de/api/webhooks/65f382e8-aca0-41c0-ad6d-22ef7b90338d
