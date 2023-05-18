@@ -6,39 +6,40 @@ on:
       - development
 
 jobs:
-      build-test-deploy-image:
-        runs-on: ubuntu-latest
-        steps:
-          - name: 'Checkout GitHub Action'
-            uses: actions/checkout@v3
-            with: 
-              ref: development
+  build-test-deploy-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout GitHub Action"
+        uses: actions/checkout@v3
+        with:
+          ref: development
 
-          - name: 'Login to self hosted docker image registry'
-            uses: docker/login-action@v2
-            with:
-              registry: docker.benevolo.de
-              username: docker_admin
-              password: ${{secrets.DOCKER_REGISTRY_ACCESS_PASSWORD}}
+      - name: "Login to self hosted docker image registry"
+        uses: docker/login-action@v2
+        with:
+          registry: docker.benevolo.de
+          username: docker_admin
+          password: ${{secrets.DOCKER_REGISTRY_ACCESS_PASSWORD}}
 
-          - name: Setup java
-            uses: actions/setup-java@v3
-            with:
-              java-version: 17.0
-              distribution: oracle
+      - name: Setup java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17.0
+          distribution: oracle
+          cache: "maven"
 
-          - name: 'Build the maven package'
-            run: ACCESS_TOKEN=${{secrets.GH_REGISTRY_ACCESS_PASSWORD}} mvn -X -s $GITHUB_WORKSPACE/.github/maven/settings.xml -B package --file pom.xml 
+      - name: "Build the maven package"
+        run: ACCESS_TOKEN=${{secrets.GH_REGISTRY_ACCESS_PASSWORD}} mvn -X -s $GITHUB_WORKSPACE/.github/maven/settings.xml -B package --file pom.xml
 
-          - name: 'Build and test society-sorcerer image'
-            run: |
-              docker build -f src/main/docker/Dockerfile.jvm \
-              --tag docker.benevolo.de/stiehl-seine-perlen/society-sorcerer:dev .
+      - name: "Build and test society-sorcerer image"
+        run: |
+          docker build -f src/main/docker/Dockerfile.jvm \
+          --tag docker.benevolo.de/stiehl-seine-perlen/society-sorcerer:dev .
 
-          - name: 'Push image to self hosted docker image registry'
-            run: |
-              docker push docker.benevolo.de/stiehl-seine-perlen/society-sorcerer:dev
-              
-          - name: 'Deploy new image'
-            run : |
-              curl -X POST https://portainer.benevolo.de/api/webhooks/97a51b36-7e97-41ec-bdf7-fdf00c3631d9
+      - name: "Push image to self hosted docker image registry"
+        run: |
+          docker push docker.benevolo.de/stiehl-seine-perlen/society-sorcerer:dev
+
+      - name: "Deploy new image"
+        run: |
+          curl -X POST https://portainer.benevolo.de/api/webhooks/97a51b36-7e97-41ec-bdf7-fdf00c3631d9
