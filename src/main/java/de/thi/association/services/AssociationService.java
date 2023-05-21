@@ -23,6 +23,14 @@ public class AssociationService {
         return associationRepository.listAll();
     }
 
+    public Association createAssociation(Association association) {
+        return this.persistAssociation(association);
+    }
+
+    public boolean removeAssociation(Long id) {
+        return this.deleteAssociation(id);
+    }
+
     @Transactional
     public Association persistAssociation(Association association) {
         try {
@@ -33,7 +41,13 @@ public class AssociationService {
         }
     }
 
-    public Association createAssociation(Association association) {
-        return this.persistAssociation(association);
+    @Transactional
+    public boolean deleteAssociation(Long id) {
+        try {
+            associationRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            throw new NotAcceptableException("Could Not Delete Association With ID: " + id);
+        }
     }
 }
