@@ -38,8 +38,8 @@ public class AssociationResource {
         return associationService.getAssociationById(id);
     }
 
-    @GET
-    @Path("{id}/delete")
+    @DELETE
+    @Path("{id}/")
     @Produces(MediaType.APPLICATION_JSON)
     public boolean deleteAssociation(@PathParam("id") Long id) {
         return associationService.removeAssociation(id);
