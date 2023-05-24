@@ -24,6 +24,14 @@ public class AssociationResource {
         return associationService.persistAssociation(association);
     }
 
+    @PUT
+    @Path("{id}/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean updateAssociation(@PathParam("id") Long id, Association association) {
+        return associationService.updateAssociation(id, association);
+    }
+
     @GET
     @Path("all/")
     @Produces(MediaType.APPLICATION_JSON)
