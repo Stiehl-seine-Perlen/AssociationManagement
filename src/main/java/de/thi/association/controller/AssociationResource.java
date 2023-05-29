@@ -50,6 +50,6 @@ public class AssociationResource {
     @Path("{id}/")
     @Produces(MediaType.APPLICATION_JSON)
     public boolean deleteAssociation(@PathParam("id") Long id) {
-        return associationService.removeAssociation(id);
+        return associationService.deleteAssociation(id);
     }
 }

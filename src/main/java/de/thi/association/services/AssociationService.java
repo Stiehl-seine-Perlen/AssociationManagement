@@ -23,12 +23,14 @@ public class AssociationService {
         return associationRepository.listAll();
     }
 
-    public Association createAssociation(Association association) {
-        return this.persistAssociation(association);
-    }
-
-    public boolean removeAssociation(Long id) {
-        return this.deleteAssociation(id);
+    @Transactional
+    public Association persistAssociation(Association association) {
+        try {
+            associationRepository.persist(association);
+            return association;
+        } catch (Exception e) {
+            throw new NotAcceptableException("Could Not Persist Association: " + e);
+        }
     }
 
     @Transactional
@@ -51,15 +53,6 @@ public class AssociationService {
         }
     }
 
-    @Transactional
-    public Association persistAssociation(Association association) {
-        try {
-            associationRepository.persist(association);
-            return association;
-        } catch (Exception e) {
-            throw new NotAcceptableException("Could Not Persist Association: " + e);
-        }
-    }
 
     @Transactional
     public boolean deleteAssociation(Long id) {
