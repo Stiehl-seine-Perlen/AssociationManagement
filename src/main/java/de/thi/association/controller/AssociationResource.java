@@ -17,11 +17,19 @@ public class AssociationResource {
     AssociationService associationService;
 
     @POST
-    @Path("add/")
+    @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Association addAssociation(Association association) {
         return associationService.persistAssociation(association);
+    }
+
+    @PUT
+    @Path("{id}/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean updateAssociation(@PathParam("id") Long id, Association association) {
+        return associationService.updateAssociation(id, association);
     }
 
     @GET
@@ -42,6 +50,6 @@ public class AssociationResource {
     @Path("{id}/")
     @Produces(MediaType.APPLICATION_JSON)
     public boolean deleteAssociation(@PathParam("id") Long id) {
-        return associationService.removeAssociation(id);
+        return associationService.deleteAssociation(id);
     }
 }

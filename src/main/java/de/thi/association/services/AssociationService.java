@@ -23,23 +23,36 @@ public class AssociationService {
         return associationRepository.listAll();
     }
 
-    public Association createAssociation(Association association) {
-        return this.persistAssociation(association);
-    }
-
-    public boolean removeAssociation(Long id) {
-        return this.deleteAssociation(id);
-    }
-
     @Transactional
     public Association persistAssociation(Association association) {
         try {
             associationRepository.persist(association);
             return association;
         } catch (Exception e) {
-            throw new NotAcceptableException("Could Not Persist Association with name" + association.getAssociationName());
+            throw new NotAcceptableException("Could Not Persist Association: " + e);
         }
     }
+
+    @Transactional
+    public boolean updateAssociation(Long id, Association association) {
+        Association existingAssociation = associationRepository.findById(id);
+
+        if (existingAssociation != null) {
+            existingAssociation.setAssociationName(association.getAssociationName());
+            existingAssociation.setBusinessMail(association.getBusinessMail());
+            existingAssociation.setAddress(association.getAddress());
+            existingAssociation.setDescription(association.getDescription());
+        }
+
+        try {
+            associationRepository.persist(existingAssociation);
+            return true;
+
+        } catch (Exception e) {
+            throw new NotAcceptableException("update failed");
+        }
+    }
+
 
     @Transactional
     public boolean deleteAssociation(Long id) {
