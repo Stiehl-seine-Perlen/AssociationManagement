@@ -21,7 +21,9 @@ public class AssociationResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Association addAssociation(Association association) {
-        return associationService.persistAssociation(association);
+        association = associationService.persistAssociation(association);
+        associationService.initialize(association);
+        return association;
     }
 
     @PUT
