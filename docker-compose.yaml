@@ -14,6 +14,7 @@ services:
       QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://postgres-dev:5432/finance
       QUARKUS_HIBERNATE_ORM_DATABASE_GENERATION: drop-and-create 
       QUARKUS_HTTP_CORS_ORIGINS: "https://dev.benevolo.de" ## allow frontend as origin
+      QUARKUS_REST-CLIENT_FINANCE_URL: http://budget-wizard-dev:8082
     
     networks:
       - society-sorcerer
