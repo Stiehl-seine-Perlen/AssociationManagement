@@ -56,9 +56,9 @@ public class AssociationResource {
     }
 
     @POST
-    @Path({"{id}/initialize")
+    @Path("{id}/initialize/")
     @Consumes(MediaType.APPLICATION_JSON)
     public void initializeAssociation(Association association){
-        initializeAssociation(association);
+        associationService.initialize(association);
     }
 }
