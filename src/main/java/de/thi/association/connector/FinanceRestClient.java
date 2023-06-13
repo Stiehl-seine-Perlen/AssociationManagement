@@ -8,7 +8,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
 @ApplicationScoped
-@RegisterRestClient(configKey = "finance", baseUri = "http://localhost:8082")
+@RegisterRestClient(configKey = "finance")
 public interface FinanceRestClient {
 
     @POST
