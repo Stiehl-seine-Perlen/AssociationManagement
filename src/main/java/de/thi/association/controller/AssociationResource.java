@@ -54,4 +54,11 @@ public class AssociationResource {
     public boolean deleteAssociation(@PathParam("id") Long id) {
         return associationService.deleteAssociation(id);
     }
+
+    @POST
+    @Path({"{id}/initialize")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void initializeAssociation(Association association){
+        initializeAssociation(association);
+    }
 }

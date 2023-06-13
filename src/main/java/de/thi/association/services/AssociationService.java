@@ -37,6 +37,7 @@ public class AssociationService {
     public Association persistAssociation(Association association) {
         try {
             associationRepository.persist(association);
+
             return association;
         } catch (Exception e) {
             throw new NotAcceptableException("Could Not Persist Association: " + e);
