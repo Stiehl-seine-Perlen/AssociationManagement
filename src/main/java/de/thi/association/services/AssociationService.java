@@ -1,19 +1,20 @@
 package de.thi.association.services;
 
-import de.benevolo.entities.association.Association;
-import de.benevolo.entities.finance.AccountType;
-import de.benevolo.entities.finance.FinancialAccount;
-import de.thi.association.connector.FinanceRestClient;
-import de.thi.association.repositories.AssociationRepository;
-import org.eclipse.microprofile.rest.client.inject.RestClient;
+import java.math.BigDecimal;
+import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.NotAcceptableException;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
+
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+
+import de.benevolo.entities.association.Association;
+import de.benevolo.entities.finance.AccountType;
+import de.benevolo.entities.finance.FinancialAccount;
+import de.thi.association.connector.FinanceRestClient;
+import de.thi.association.repositories.AssociationRepository;
 
 @ApplicationScoped
 public class AssociationService {
@@ -74,7 +75,7 @@ public class AssociationService {
         }
     }
 
-    public void initialize(Association association){
+    public void initialize(Association association) {
         BigDecimal openingBalance = new BigDecimal(0);
         Long associationId = association.getId();
 
@@ -83,32 +84,32 @@ public class AssociationService {
                         "Vorderfiniertes Spendenkonto",
                         associationId,
                         openingBalance,
-                        AccountType.IDEELLER_BEREICH),  //TODO Überprüfen @Merlin
+                        AccountType.IDEELLER_BEREICH), // TODO Überprüfen @Merlin
                 new FinancialAccount("Mitgliedsbeiträge",
                         "Vordefiniertes Mitgliedsbeiträge Konto",
                         associationId,
                         openingBalance,
-                        AccountType.ZWECKBETRIEB), //TODO Überprüfen @Merlin
+                        AccountType.ZWECKBETRIEB), // TODO Überprüfen @Merlin
                 new FinancialAccount("Sammelposten Einnahmen",
                         "Vorderfiniertes Einnahmekonto",
                         associationId,
                         openingBalance,
-                        AccountType.WIRTSCHAFTLICH), //TODO Überprüfen @Merlin
+                        AccountType.WIRTSCHAFTLICH), // TODO Überprüfen @Merlin
                 new FinancialAccount("Sammelposten Aufwendungen",
                         "Vordefiniertes Aufwendungskonto",
                         associationId,
                         openingBalance,
-                        AccountType.ZWECKBETRIEB), //TODO Überprüfen @Merlin
+                        AccountType.ZWECKBETRIEB), // TODO Überprüfen @Merlin
                 new FinancialAccount("Rechtskosten",
                         "Vordefiniertes Rechtskostenkonto",
                         associationId,
                         openingBalance,
-                        AccountType.ZWECKBETRIEB), //TODO Überprüfen @Merlin
+                        AccountType.ZWECKBETRIEB), // TODO Überprüfen @Merlin
                 new FinancialAccount("Mitarbeiterkosten",
                         "Vordefiniertes Mitarbeiterkostenkonto",
                         associationId,
                         openingBalance,
-                        AccountType.ZWECKBETRIEB) //TODO Überprüfen @Merlin
+                        AccountType.ZWECKBETRIEB) // TODO Überprüfen @Merlin
         };
 
         for (FinancialAccount financialAccount : financialAccounts) {
