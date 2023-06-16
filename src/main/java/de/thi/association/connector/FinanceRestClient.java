@@ -13,6 +13,6 @@ public interface FinanceRestClient {
 
     @POST
     @Path("/account/")
-    public void createFinancialAccount(FinancialAccount financialAccount);
+    void createFinancialAccount(FinancialAccount financialAccount);
 
 }
