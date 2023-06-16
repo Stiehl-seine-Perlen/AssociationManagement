@@ -9,7 +9,9 @@ import de.benevolo.entities.association.AssociationRole;
 import de.benevolo.entities.association.Membership;
 import de.thi.association.services.AssociationService;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Path("/association/")
@@ -45,7 +47,7 @@ public class AssociationResource {
     }
 
     @GET
-    @Path("{id}/")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Association getAssociation(@PathParam("id") Long id) {
         return associationService.getAssociationById(id);
