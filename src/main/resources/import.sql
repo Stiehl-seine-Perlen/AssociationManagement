@@ -1,9 +1,9 @@
 -- Insert data into the Address table
 INSERT INTO Address (adressId, city, country, houseNumber, postalCode, street)
 VALUES
-    (1, 'New York', 'USA', '123', '10001', 'Main Street'),
-    (2, 'London', 'UK', '456', 'SW1A 1AA', 'Oxford Road'),
-    (3, 'Paris', 'France', '789', '75001', 'Rue de la Paix');
+    (101, 'New York', 'USA', '123', '10001', 'Main Street'),
+    (102, 'London', 'UK', '456', 'SW1A 1AA', 'Oxford Road'),
+    (103, 'Paris', 'France', '789', '75001', 'Rue de la Paix');
 
 -- Insert data into the Logo table
 INSERT INTO Logo (logoId, ownedByAssociationId, s3ObjectName)
@@ -14,8 +14,8 @@ VALUES
 -- Insert data into the Association table
 INSERT INTO Association (id, associationName, businessMail, description, feeCollectionsPerYear, membershipFee, registerNumber, taxNumber, address_adressId, logo_logoId)
 VALUES
-    (101, 'Association A', 'info@associationA.com', 'Association A Description', 4, 100.00, 'REG001', 'TAX001', 1, 1),
-    (102, 'Association B', 'info@associationB.com', 'Association B Description', 2, 50.00, 'REG002', 'TAX002', 2, 2);
+    (101, 'Association A', 'info@associationA.com', 'Association A Description', 4, 100.00, 'REG001', 'TAX001', 101, 1),
+    (102, 'Association B', 'info@associationB.com', 'Association B Description', 2, 50.00, 'REG002', 'TAX002', 102, 2);
 
 -- Insert data into the AssociationRole table
 INSERT INTO AssociationRole (associationRoleId, canAccount, canEvent, canTransaction, roleDescription, roleName, association_id)
