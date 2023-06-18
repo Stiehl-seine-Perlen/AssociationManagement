@@ -1,4 +1,4 @@
-package de.thi.association.controller;
+package de.thi.association.resources;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
