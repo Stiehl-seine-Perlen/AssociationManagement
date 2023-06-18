@@ -1,6 +1,5 @@
 package de.thi.association.services;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -8,12 +7,7 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.NotAcceptableException;
 
-import org.eclipse.microprofile.rest.client.inject.RestClient;
-
 import de.benevolo.entities.association.Association;
-import de.benevolo.entities.finance.AccountType;
-import de.benevolo.entities.finance.FinancialAccount;
-import de.thi.association.connector.FinanceRestClient;
 import de.thi.association.repositories.AssociationRepository;
 
 @ApplicationScoped
