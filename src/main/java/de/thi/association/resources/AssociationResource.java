@@ -17,11 +17,13 @@ import java.util.List;
 public class AssociationResource {
     // Schnittstelle
 
+    // region Injections
     @Inject
     AssociationService associationService;
 
     @Inject
     KafkaMessaging kafkaMessaging;
+    //endregion
 
     @POST
     @Path("/")
@@ -51,14 +53,14 @@ public class AssociationResource {
     }
 
     @GET
-    @Path("{id}")
+    @Path("{id}/")
     @Produces(MediaType.APPLICATION_JSON)
     public Association getAssociation(@PathParam("id") Long id) {
         return associationService.getAssociationById(id);
     }
 
     @DELETE
-    @Path("{id}")
+    @Path("{id}/")
     @Produces(MediaType.APPLICATION_JSON)
     public boolean deleteAssociation(@PathParam("id") Long id) {
         return associationService.deleteAssociation(id);
