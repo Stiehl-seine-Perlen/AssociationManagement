@@ -9,9 +9,7 @@ import de.benevolo.entities.association.AssociationRole;
 import de.benevolo.entities.association.Membership;
 import de.thi.association.services.AssociationService;
 
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Path("/association/")
@@ -27,7 +25,12 @@ public class AssociationResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Association addAssociation(Association association) {
         association = associationService.persistAssociation(association);
-        associationService.initialize(association);
+        try {
+            associationService.initialize(association);
+        } catch (ProcessingException e){
+            System.out.println(e.getMessage());
+        }
+
         return association;
     }
 
