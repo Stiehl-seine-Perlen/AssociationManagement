@@ -13,7 +13,7 @@ import de.thi.association.services.AssociationService;
 import java.util.ArrayList;
 import java.util.List;
 
-@Path("/association/")
+@Path("/")
 public class AssociationResource {
     // Schnittstelle
 
