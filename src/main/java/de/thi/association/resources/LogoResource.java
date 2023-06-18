@@ -18,6 +18,13 @@ public class LogoResource {
     @Inject
     S3Service s3Service;
 
+    @GET
+    @Path("{logoName}/img")
+    @Produces({"image/jpeg"})
+    public InputStream getLogo(@PathParam("logoName") String logoName) throws Exception {
+        return s3Service.getObject(logoName);
+    }
+
     @POST
     @Path("/")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
