@@ -22,10 +22,6 @@ public class AssociationService {
     @Inject
     AssociationRepository associationRepository;
 
-    @Inject
-    @RestClient
-    FinanceRestClient financeRestClient;
-
     public Association getAssociationById(Long id) {
         return associationRepository.findById(id);
     }
@@ -74,48 +70,4 @@ public class AssociationService {
             throw new NotAcceptableException("Could Not Delete Association With ID: " + id);
         }
     }
-
-    public void initialize(Association association) {
-        BigDecimal openingBalance = new BigDecimal(0);
-        Long associationId = association.getId();
-
-        FinancialAccount[] financialAccounts = new FinancialAccount[] {
-                new FinancialAccount("Spenden",
-                        "Vorderfiniertes Spendenkonto",
-                        associationId,
-                        openingBalance,
-                        AccountType.IDEELLER_BEREICH), // TODO Überprüfen @Merlin
-                new FinancialAccount("Mitgliedsbeiträge",
-                        "Vordefiniertes Mitgliedsbeiträge Konto",
-                        associationId,
-                        openingBalance,
-                        AccountType.ZWECKBETRIEB), // TODO Überprüfen @Merlin
-                new FinancialAccount("Sammelposten Einnahmen",
-                        "Vorderfiniertes Einnahmekonto",
-                        associationId,
-                        openingBalance,
-                        AccountType.WIRTSCHAFTLICH), // TODO Überprüfen @Merlin
-                new FinancialAccount("Sammelposten Aufwendungen",
-                        "Vordefiniertes Aufwendungskonto",
-                        associationId,
-                        openingBalance,
-                        AccountType.ZWECKBETRIEB), // TODO Überprüfen @Merlin
-                new FinancialAccount("Rechtskosten",
-                        "Vordefiniertes Rechtskostenkonto",
-                        associationId,
-                        openingBalance,
-                        AccountType.ZWECKBETRIEB), // TODO Überprüfen @Merlin
-                new FinancialAccount("Mitarbeiterkosten",
-                        "Vordefiniertes Mitarbeiterkostenkonto",
-                        associationId,
-                        openingBalance,
-                        AccountType.ZWECKBETRIEB) // TODO Überprüfen @Merlin
-        };
-
-        for (FinancialAccount financialAccount : financialAccounts) {
-            financeRestClient.createFinancialAccount(financialAccount);
-        }
-
-    }
-
 }

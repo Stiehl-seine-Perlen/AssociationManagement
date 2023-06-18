@@ -7,6 +7,7 @@ import javax.ws.rs.core.MediaType;
 import de.benevolo.entities.association.Association;
 import de.benevolo.entities.association.AssociationRole;
 import de.benevolo.entities.association.Membership;
+import de.thi.association.connector.KafkaMessaging;
 import de.thi.association.services.AssociationService;
 
 import java.util.ArrayList;
@@ -19,17 +20,17 @@ public class AssociationResource {
     @Inject
     AssociationService associationService;
 
+    @Inject
+    KafkaMessaging kafkaMessaging;
+
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Association addAssociation(Association association) {
         association = associationService.persistAssociation(association);
-        try {
-            associationService.initialize(association);
-        } catch (ProcessingException e){
-            System.out.println(e.getMessage());
-        }
+
+        kafkaMessaging.announceNewAssociation(association.getId());
 
         return association;
     }
@@ -57,18 +58,18 @@ public class AssociationResource {
     }
 
     @DELETE
-    @Path("{id}/")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public boolean deleteAssociation(@PathParam("id") Long id) {
         return associationService.deleteAssociation(id);
     }
 
-    @POST
-    @Path("{id}/initialize/")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void initializeAssociation(Association association) {
-        associationService.initialize(association);
-    }
+//    @POST
+//    @Path("{id}/initialize/")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public void initializeAssociation(Association association) {
+//        associationService.initialize(association);
+//    }
 
     // TODO: Implement this mock properly
     @GET
@@ -84,5 +85,11 @@ public class AssociationResource {
         list.add(new Membership(5L, 5L, role));
         return list;
 
+    }
+
+    @Path("testing/{associationId}")
+    @POST
+    public void testKafkaMessaging(@PathParam("associationId") Long associationId){
+        kafkaMessaging.announceNewAssociation(associationId);
     }
 }

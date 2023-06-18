@@ -85,6 +85,10 @@
             <artifactId>quarkus-rest-client-reactive-jackson</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-reactive-messaging-kafka</artifactId>
+        </dependency>
+        <dependency>
             <groupId>de.benevolo</groupId>
             <artifactId>entities-repo</artifactId>
             <version>1.6.0-SNAPSHOT</version>
