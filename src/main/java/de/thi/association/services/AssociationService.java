@@ -9,9 +9,13 @@ import javax.ws.rs.NotAcceptableException;
 
 import de.benevolo.entities.association.Association;
 import de.thi.association.repositories.AssociationRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @ApplicationScoped
 public class AssociationService {
+
+    private static final Logger logger = LoggerFactory.getLogger(AssociationService.class);
 
     @Inject
     AssociationRepository associationRepository;
@@ -31,7 +35,8 @@ public class AssociationService {
 
             return association;
         } catch (Exception e) {
-            throw new NotAcceptableException("Could Not Persist Association: " + e);
+            logger.error("Could Not Persist Association", e);
+            return null;
         }
     }
 
@@ -51,7 +56,8 @@ public class AssociationService {
             return true;
 
         } catch (Exception e) {
-            throw new NotAcceptableException("update failed");
+            logger.error("Update Failed", e);
+            return false;
         }
     }
 
@@ -61,7 +67,8 @@ public class AssociationService {
             associationRepository.deleteById(id);
             return true;
         } catch (Exception e) {
-            throw new NotAcceptableException("Could Not Delete Association With ID: " + id);
+            logger.error("Could Not Delete Association With ID: ", id);
+            return false;
         }
     }
 }
