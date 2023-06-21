@@ -43,7 +43,7 @@ public class LogoResource {
         MultivaluedMap<String, String> headers = fileInputPart.getHeaders();
         String encType = headers.getFirst("Content-Type").split("/")[1];
          try (InputStream inputStream = fileInputPart.getBody(InputStream.class, null)) {
-            String s3ObjectName = s3Service.putObject(inputStream, encType, fileInputSize, "logos/");
+            String s3ObjectName = s3Service.putObject(inputStream, encType, fileInputSize);
             return s3ObjectName;
         }
     }
