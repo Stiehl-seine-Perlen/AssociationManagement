@@ -7,7 +7,7 @@ import javax.ws.rs.core.MediaType;
 import de.benevolo.entities.association.Association;
 import de.benevolo.entities.association.AssociationRole;
 import de.benevolo.entities.association.Membership;
-import de.thi.association.connector.KafkaMessaging;
+import de.thi.association.connector.AssociationPublisher;
 import de.thi.association.services.AssociationService;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class AssociationResource {
     AssociationService associationService;
 
     @Inject
-    KafkaMessaging kafkaMessaging;
+    AssociationPublisher associationPublisher;
     //endregion
 
     @POST
@@ -32,7 +32,7 @@ public class AssociationResource {
     public Association addAssociation(Association association) {
         association = associationService.persistAssociation(association);
 
-        kafkaMessaging.announceNewAssociation(association.getId());
+        associationPublisher.announceNewAssociation(association.getId());
 
         return association;
     }
@@ -92,6 +92,6 @@ public class AssociationResource {
     @Path("testing/{associationId}")
     @POST
     public void testKafkaMessaging(@PathParam("associationId") Long associationId){
-        kafkaMessaging.announceNewAssociation(associationId);
+        associationPublisher.announceNewAssociation(associationId);
     }
 }
