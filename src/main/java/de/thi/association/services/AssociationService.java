@@ -1,6 +1,5 @@
 package de.thi.association.services;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -8,16 +7,15 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.NotAcceptableException;
 
-import org.eclipse.microprofile.rest.client.inject.RestClient;
-
 import de.benevolo.entities.association.Association;
-import de.benevolo.entities.finance.AccountType;
-import de.benevolo.entities.finance.FinancialAccount;
-import de.thi.association.connector.FinanceRestClient;
 import de.thi.association.repositories.AssociationRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @ApplicationScoped
 public class AssociationService {
+
+    private static final Logger logger = LoggerFactory.getLogger(AssociationService.class);
 
     @Inject
     AssociationRepository associationRepository;
@@ -37,7 +35,8 @@ public class AssociationService {
 
             return association;
         } catch (Exception e) {
-            throw new NotAcceptableException("Could Not Persist Association: " + e);
+            logger.error("Could Not Persist Association", e);
+            return null;
         }
     }
 
@@ -57,7 +56,8 @@ public class AssociationService {
             return true;
 
         } catch (Exception e) {
-            throw new NotAcceptableException("update failed");
+            logger.error("Update Failed", e);
+            return false;
         }
     }
 
@@ -67,7 +67,8 @@ public class AssociationService {
             associationRepository.deleteById(id);
             return true;
         } catch (Exception e) {
-            throw new NotAcceptableException("Could Not Delete Association With ID: " + id);
+            logger.error("Could Not Delete Association With ID: ", id);
+            return false;
         }
     }
 }

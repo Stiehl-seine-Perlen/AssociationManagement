@@ -1,4 +1,4 @@
-package de.thi.association.controller;
+package de.thi.association.resources;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -7,21 +7,23 @@ import javax.ws.rs.core.MediaType;
 import de.benevolo.entities.association.Association;
 import de.benevolo.entities.association.AssociationRole;
 import de.benevolo.entities.association.Membership;
-import de.thi.association.connector.KafkaMessaging;
+import de.thi.association.connector.AssociationPublisher;
 import de.thi.association.services.AssociationService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Path("/association/")
+@Path("/")
 public class AssociationResource {
     // Schnittstelle
 
+    // region Injections
     @Inject
     AssociationService associationService;
 
     @Inject
-    KafkaMessaging kafkaMessaging;
+    AssociationPublisher associationPublisher;
+    //endregion
 
     @POST
     @Path("/")
@@ -30,7 +32,7 @@ public class AssociationResource {
     public Association addAssociation(Association association) {
         association = associationService.persistAssociation(association);
 
-        kafkaMessaging.announceNewAssociation(association.getId());
+        associationPublisher.announceNewAssociation(association.getId());
 
         return association;
     }
@@ -51,14 +53,14 @@ public class AssociationResource {
     }
 
     @GET
-    @Path("{id}")
+    @Path("{id}/")
     @Produces(MediaType.APPLICATION_JSON)
     public Association getAssociation(@PathParam("id") Long id) {
         return associationService.getAssociationById(id);
     }
 
     @DELETE
-    @Path("{id}")
+    @Path("{id}/")
     @Produces(MediaType.APPLICATION_JSON)
     public boolean deleteAssociation(@PathParam("id") Long id) {
         return associationService.deleteAssociation(id);
@@ -90,6 +92,6 @@ public class AssociationResource {
     @Path("testing/{associationId}")
     @POST
     public void testKafkaMessaging(@PathParam("associationId") Long associationId){
-        kafkaMessaging.announceNewAssociation(associationId);
+        associationPublisher.announceNewAssociation(associationId);
     }
 }
