@@ -42,10 +42,9 @@ public class LogoResource {
         // Example Content-Type: image/jpeg
         MultivaluedMap<String, String> headers = fileInputPart.getHeaders();
         String encType = headers.getFirst("Content-Type").split("/")[1];
-        InputStream inputStream = fileInputPart.getBody(InputStream.class, null);
-        String s3ObjectName = s3Service.putObject(inputStream, encType, fileInputSize);
-
-        inputStream.close();
-        return s3ObjectName;
+         try (InputStream inputStream = fileInputPart.getBody(InputStream.class, null)) {
+            String s3ObjectName = s3Service.putObject(inputStream, encType, fileInputSize, "logos/");
+            return s3ObjectName;
+        }
     }
 }
