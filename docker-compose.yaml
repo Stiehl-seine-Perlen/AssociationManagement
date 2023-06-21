@@ -16,10 +16,9 @@ services:
       QUARKUS_HTTP_CORS_ORIGINS: "https://dev.benevolo.de" ## allow frontend as origin
       QUARKUS_REST-CLIENT_FINANCE_URL: http://budget-wizard-dev:8082
       KAFKA_BOOTSTRAP_SERVERS: rp-kafka:9092
-
       MINIO_ACCESSKEY: ${MINIO_ACCESSKEY}
       MINIO_SECRETKEY: ${MINIO_SECRETKEY}
-      MINIO_BUCKET: logo-bucket
+      MINIO_BUCKET: association
       MINIO_ENDPOINT: http://minio:9000
 
     networks:
