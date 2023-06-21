@@ -88,10 +88,4 @@ public class AssociationResource {
         return list;
 
     }
-
-    @Path("testing/{associationId}")
-    @POST
-    public void testKafkaMessaging(@PathParam("associationId") Long associationId){
-        associationPublisher.announceNewAssociation(associationId);
-    }
 }
