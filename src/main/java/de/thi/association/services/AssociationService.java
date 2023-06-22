@@ -11,7 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.benevolo.entities.association.Association;
+import de.benevolo.entities.association.AssociationRole;
 import de.benevolo.entities.association.Membership;
+import de.benevolo.entities.user.PlatformUser;
 import de.thi.association.repositories.AssociationRepository;
 import de.thi.association.repositories.MembershipRepository;
 
@@ -79,15 +81,20 @@ public class AssociationService {
     }
 
     @Transactional
-    public Membership persistMembership(Membership membership) {
+    public Membership persistMembership(Membership membership){
+        //Workaround to addMemberships
+        Membership freshMembership = new Membership();
+        logger.info("Membership: " + membership);
+        membership.setAssociationRole(freshMembership.getAssociationRole());
+        membership.setMembershipId(null);
+        
         try {
             membershipRepository.persist(membership);
-            return membership;
+            logger.info("Membership persisted.");
+           return membership;
         } catch (Exception e) {
-            logger.error("Could Not Persist Membership", e);
-            return null;
+           logger.error("Could Not Persist Membership", e);
+            return membership;
         }
     }
-
-
 }

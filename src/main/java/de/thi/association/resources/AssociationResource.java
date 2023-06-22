@@ -5,6 +5,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import de.benevolo.entities.association.Association;
+import de.benevolo.entities.user.PlatformUser;
 import de.benevolo.entities.association.AssociationRole;
 import de.benevolo.entities.association.Membership;
 import de.thi.association.connector.AssociationPublisher;
@@ -30,7 +31,13 @@ public class AssociationResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Association addAssociation(Association association) {
-        association = associationService.persistAssociation(association);
+        try{
+            System.out.println("Asso: " + (association!=null));
+            association = associationService.persistAssociation(association);
+        }catch (Exception e) {
+            
+        }
+        
 
         associationPublisher.announceNewAssociation(association.getId());
 
@@ -68,13 +75,11 @@ public class AssociationResource {
 
 
     @POST
-    @Path("/add")
+    @Path("addMembership/")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Membership addMembership(Membership membership) {
-        membership = associationService.persistMembership(membership);
-
-        return membership;
+        return associationService.persistMembership(membership);
     }
 
 //    @POST
