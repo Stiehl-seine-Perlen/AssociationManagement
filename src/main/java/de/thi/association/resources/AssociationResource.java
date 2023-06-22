@@ -66,13 +66,6 @@ public class AssociationResource {
         return associationService.deleteAssociation(id);
     }
 
-//    @POST
-//    @Path("{id}/initialize/")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public void initializeAssociation(Association association) {
-//        associationService.initialize(association);
-//    }
-
     // TODO: Implement this mock properly
     @GET
     @Path("{id}/members")
