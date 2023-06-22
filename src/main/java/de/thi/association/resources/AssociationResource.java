@@ -66,6 +66,17 @@ public class AssociationResource {
         return associationService.deleteAssociation(id);
     }
 
+
+    @POST
+    @Path("/add")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Membership addMembership(Membership membership) {
+        membership = associationService.persistMembership(membership);
+
+        return membership;
+    }
+
 //    @POST
 //    @Path("{id}/initialize/")
 //    @Consumes(MediaType.APPLICATION_JSON)

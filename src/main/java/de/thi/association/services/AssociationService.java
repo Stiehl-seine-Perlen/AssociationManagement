@@ -7,10 +7,13 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.NotAcceptableException;
 
-import de.benevolo.entities.association.Association;
-import de.thi.association.repositories.AssociationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import de.benevolo.entities.association.Association;
+import de.benevolo.entities.association.Membership;
+import de.thi.association.repositories.AssociationRepository;
+import de.thi.association.repositories.MembershipRepository;
 
 @ApplicationScoped
 public class AssociationService {
@@ -19,6 +22,9 @@ public class AssociationService {
 
     @Inject
     AssociationRepository associationRepository;
+
+    @Inject
+    MembershipRepository membershipRepository;
 
     public Association getAssociationById(Long id) {
         return associationRepository.findById(id);
@@ -71,4 +77,17 @@ public class AssociationService {
             return false;
         }
     }
+
+    @Transactional
+    public Membership persistMembership(Membership membership) {
+        try {
+            membershipRepository.persist(membership);
+            return membership;
+        } catch (Exception e) {
+            logger.error("Could Not Persist Membership", e);
+            return null;
+        }
+    }
+
+
 }
