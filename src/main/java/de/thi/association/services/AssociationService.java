@@ -34,6 +34,7 @@ public class AssociationService {
         return associationRepository.listAll();
     }
 
+
     @Transactional
     public Association persistAssociation(Association association) {
         try {

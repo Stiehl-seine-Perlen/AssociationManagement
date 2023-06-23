@@ -67,14 +67,6 @@ public class AssociationResource {
     }
 
 
-    @POST
-    @Path("addMembership/")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Membership addMembership(Membership membership) {
-        return associationService.persistMembership(membership);
-    }
-
     // TODO: Implement this mock properly
     @GET
     @Path("{id}/members")
