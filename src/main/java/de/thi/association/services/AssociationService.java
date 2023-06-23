@@ -5,15 +5,12 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.ws.rs.NotAcceptableException;
 
 import de.benevolo.entities.association.Association;
-import de.benevolo.entities.association.Membership;
-
 import de.thi.association.repositories.AssociationRepository;
-import de.thi.association.repositories.MembershipRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @ApplicationScoped
 public class AssociationService {
@@ -22,9 +19,6 @@ public class AssociationService {
 
     @Inject
     AssociationRepository associationRepository;
-
-    @Inject
-    MembershipRepository membershipRepository;
 
     public Association getAssociationById(Long id) {
         return associationRepository.findById(id);
@@ -76,24 +70,6 @@ public class AssociationService {
         } catch (Exception e) {
             logger.error("Could Not Delete Association With ID: ", id);
             return false;
-        }
-    }
-
-    @Transactional
-    public Membership persistMembership(Membership membership){
-        //Workaround to addMemberships
-        Membership freshMembership = new Membership();
-        logger.info("Membership: " + membership);
-        membership.setAssociationRole(freshMembership.getAssociationRole());
-        membership.setMembershipId(null);
-        
-        try {
-            membershipRepository.persist(membership);
-            logger.info("Membership persisted.");
-           return membership;
-        } catch (Exception e) {
-           logger.error("Could Not Persist Membership", e);
-            return membership;
         }
     }
 }
