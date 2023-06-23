@@ -7,10 +7,10 @@ VALUES
 --     (4, 'Sydney', 'Australia', '321', '2000', 'King''s Road');
 
 -- Insert data into the Association table
-INSERT INTO Association (id, associationName, businessMail, description, feeCollectionsPerYear, membershipFee, registerNumber, taxNumber, address_adressId)
+INSERT INTO Association (id, associationName, businessMail, description, feeCollectionsPerYear, membershipFee, registerNumber, taxNumber, address_adressId, logoName)
 VALUES
-    (101, 'Association A', 'info@associationA.com', 'Association A Description', 4, 100.00, 'REG001', 'TAX001', 101),
-    (102, 'Association B', 'info@associationB.com', 'Association B Description', 2, 50.00, 'REG002', 'TAX002', 102);
+    (101, 'Association A', 'info@associationA.com', 'Association A Description', 4, 100.00, 'REG001', 'TAX001', 101, 'defaultLogo.jpeg'),
+    (102, 'Association B', 'info@associationB.com', 'Association B Description', 2, 50.00, 'REG002', 'TAX002', 102, 'defaultLogo.jpeg');
 
 -- Insert data into the AssociationRole table
 INSERT INTO AssociationRole (associationRoleId, canAccount, canEvent, canTransaction, roleDescription, roleName, association_id)

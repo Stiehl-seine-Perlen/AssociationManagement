@@ -54,8 +54,11 @@ public class AssociationService {
         if (existingAssociation != null) {
             existingAssociation.setAssociationName(association.getAssociationName());
             existingAssociation.setBusinessMail(association.getBusinessMail());
-            existingAssociation.setAddress(association.getAddress());
             existingAssociation.setDescription(association.getDescription());
+            existingAssociation.setMembershipFee(association.getMembershipFee());
+            existingAssociation.setFeeCollectionsPerYear(association.getFeeCollectionsPerYear());
+            existingAssociation.setLogoName(association.getLogoName());
+            existingAssociation.setAddress(association.getAddress());
         }
 
         try {

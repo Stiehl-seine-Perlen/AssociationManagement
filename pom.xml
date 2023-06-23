@@ -96,7 +96,7 @@
         <dependency>
             <groupId>de.benevolo</groupId>
             <artifactId>entities-repo</artifactId>
-            <version>1.7.6-SNAPSHOT</version>
+            <version>1.7.10-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
