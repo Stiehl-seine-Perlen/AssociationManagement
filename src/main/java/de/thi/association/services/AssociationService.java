@@ -5,15 +5,13 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import javax.ws.rs.NotAcceptableException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.benevolo.entities.association.Association;
-import de.benevolo.entities.association.AssociationRole;
 import de.benevolo.entities.association.Membership;
-import de.benevolo.entities.user.PlatformUser;
+
 import de.thi.association.repositories.AssociationRepository;
 import de.thi.association.repositories.MembershipRepository;
 
