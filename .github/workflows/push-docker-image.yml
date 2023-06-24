@@ -26,7 +26,7 @@ jobs:
         with:
           java-version: 17.0
           distribution: oracle
-          cache: "maven"
+        #  cache: "maven"
 
       - name: "Build the maven package"
         run: ACCESS_TOKEN=${{secrets.GH_REGISTRY_ACCESS_PASSWORD}} mvn -X -s $GITHUB_WORKSPACE/.github/maven/settings.xml -B package --file pom.xml
@@ -40,6 +40,6 @@ jobs:
         run: |
           docker push docker.benevolo.de/stiehl-seine-perlen/society-sorcerer:dev
 
-      - name: "Deploy new image"
-        run: |
-          curl -X POST https://portainer.benevolo.de/api/webhooks/47fd3582-7198-428a-b942-9b5a9adb180d
+     # - name: "Deploy new image"
+      #  run: |
+      #    curl -X POST https://portainer.benevolo.de/api/webhooks/47fd3582-7198-428a-b942-9b5a9adb180d
