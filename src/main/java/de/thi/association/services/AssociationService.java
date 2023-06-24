@@ -5,6 +5,7 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.ws.rs.BadRequestException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -87,7 +88,7 @@ public class AssociationService {
             return membership;
         } catch (Exception e) {
             LOGGER.error("Could Not Persist Membership", e);
-            return null;
+            throw new BadRequestException("Could not persist membership: ", e);
         }
     }
 }
