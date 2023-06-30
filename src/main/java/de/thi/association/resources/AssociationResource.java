@@ -17,14 +17,13 @@ import java.util.List;
 public class AssociationResource {
     // Schnittstelle
 
-    
     // region Injections
     @Inject
     AssociationService associationService;
 
     @Inject
     AssociationPublisher associationPublisher;
-    //endregion
+    // endregion
 
     @POST
     @Path("/")
@@ -73,6 +72,23 @@ public class AssociationResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Membership addMembership(Membership membership) {
         return associationService.persistMembership(membership);
+    }
+
+  
+   @DELETE
+    @Path("deleteMembership/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean deleteMembership(Long id) {
+        return associationService.deleteMembership(id);
+    }
+
+    @POST
+    @Path("memberships/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Membership> getMembershipsByAssociationId(Long associationId) {
+        List<Membership> list = new ArrayList<>();
+        list = associationService.getMembershipsByAssociationId(associationId);
+        return list;
     }
 
     // TODO: Implement this mock properly

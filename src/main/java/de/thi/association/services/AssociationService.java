@@ -1,5 +1,6 @@
 package de.thi.association.services;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -34,7 +35,6 @@ public class AssociationService {
     public List<Association> getAllAssociations() {
         return associationRepository.listAll();
     }
-
 
     @Transactional
     public Association persistAssociation(Association association) {
@@ -84,14 +84,40 @@ public class AssociationService {
     }
 
     @Transactional
-    public Membership persistMembership(Membership membership){ 
+    public Membership persistMembership(Membership membership) {
         try {
             membershipRepository.persist(membership);
             LOGGER.info("Membership persisted.");
             return membership;
         } catch (Exception e) {
-            LOGGER.error("Could Not Persist Membership", e);
+            LOGGER.error("Could Not Persist - Membership has to be null.");
             throw new BadRequestException("Could not persist membership: ", e);
         }
     }
+
+    
+    public List<Membership> getMembershipsByAssociationId(Long associationId) {
+        try {
+            List<Membership> resultList = membershipRepository.find("association_id", associationId).list();
+            LOGGER.info("LISTE MEMBERS: {}", resultList);
+            return resultList;
+        } catch (Exception e) {
+            LOGGER.error("Error getting Memberships: ", e);
+            return Collections.emptyList();
+        }
+    }
+
+
+    @Transactional
+    public boolean deleteMembership(Long id) {
+        try {
+            LOGGER.info("Membership deleted.");
+            membershipRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            LOGGER.error("Could Not Delete Membership With ID: {}", id);
+            return false;
+        }
+    }
+
 }
