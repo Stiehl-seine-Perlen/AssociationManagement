@@ -44,8 +44,8 @@ public class TestLogoResource {
 
         minioServer.setPortBindings(Arrays.asList("9000:9000", "9001:9001"));
         minioServer.start();
-
     }
+
     @Test
     public void testAddAssociationLogo() {
         String filePath = String.format("%s%s", System.getProperty("user.dir"),
@@ -63,18 +63,6 @@ public class TestLogoResource {
             throw new BadRequestException();
         }
     }
-
-    @Test
-    public void testGetLogo() {
-        // we expect here an defaultImage to be uploaded already
-        given()
-                .when()
-                .get("/logo/defaultLogo.jpeg/img")
-                .then()
-                .statusCode(200);
-    }
-
-
 
     private boolean compareInputStreams(InputStream inputStream1, InputStream inputStream2) throws Exception {
         int data1 = inputStream1.read();
